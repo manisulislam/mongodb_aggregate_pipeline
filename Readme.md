@@ -18,12 +18,75 @@
 ```
 # 2. What is the average of all users?
 
+```
+[
+  {
+    $group: {
+      _id: null,
+      avgAge:{
+        $avg: "$age"
+      }
+    }
+  }
+]
+```
+
+
 # 3. List the top 5 most common favourite fruits among the users?
-
+```
+[
+  {
+    $group: {
+      _id: "$favoriteFruit",
+      count:{
+        $sum: 1
+      }
+    }
+  },
+  {
+    $sort: {
+      count: -1
+    }
+  },
+  {
+    $limit: 5
+  }
+]
+```
 # 4. Find the total number of males and females.
-
+```
+[
+  {
+    $group: {
+      _id: "$gender",
+      genderCount:{
+      	$sum: 1
+      }
+    }
+  }
+]
+```
 # 5. Which country has the highest number of registered users?
-
+```
+[
+  {
+    $group: {
+      _id: "$company.location.country",
+      count:{
+        $sum: 1
+      }
+    }
+  },
+  {
+    $sort: {
+      count: -1
+    }
+  },
+  {
+    $limit: 1
+  }
+]
+```
 # 6. List all unique eye colors present in the collection.
 
 # 7. What is the average number of tags per user?
